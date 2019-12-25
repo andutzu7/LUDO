@@ -25,7 +25,7 @@ MyWindow::~MyWindow()
 
 //aici hardcodez interfata
 void MyWindow::paintEvent(QPaintEvent *event)
-{       printf("ok");
+{   
     QPainter painter(this);
 
     QPen inverter(Qt::white);

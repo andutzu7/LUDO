@@ -18,11 +18,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Vec2.cpp \
     main.cpp \
-    my_window.cpp
+    my_window.cpp \
+    piece.cpp \
+    player.cpp
 
 HEADERS += \
     Vec2.h \
-    my_window.h
+    my_window.h \
+    piece.h \
+    player.h
 
 FORMS += \
     mywindow.ui
