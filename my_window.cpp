@@ -1,11 +1,13 @@
 #include "my_window.h"
 #include "ui_mywindow.h"
-
+#include <QDebug>
+#include <string>
 MyWindow::MyWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MyWindow)
 {
     ui->setupUi(this);
+
 const int screenWidth=800;
 const int screenHeight=600;
 const int squareDelta=50;
@@ -16,18 +18,22 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
         QRect r(i,j,i+squareDelta,j+squareDelta);
     }
 }
-}
+       timer=new QTimer(this);
+       timer->setInterval(500);
+       timer->start();
+       connect(timer,SIGNAL(timeout()),this,SLOT(Draw()));
+
+       qDebug()<<"Aj aici";
+    }
 MyWindow::~MyWindow()
 {
     delete ui;
 }
-#include <stdio.h>
 
 //aici hardcodez interfata
 void MyWindow::paintEvent(QPaintEvent *event)
-{       printf("ok");
+{
     QPainter painter(this);
-
     QPen inverter(Qt::white);
     inverter.setWidth(1);
     painter.setBrush(QColor(0,0,0));
@@ -67,12 +73,13 @@ void MyWindow::paintEvent(QPaintEvent *event)
           continue;
         painter.drawLine(QLine(200,20+i*30,290,20+i*30));
       }
-
+/*
       int x=55,y=55;
         painter.drawEllipse(x,y,30,30);
         painter.drawEllipse(x+270,y,30,30);
         painter.drawEllipse(x,y+270,30,30);
         painter.drawEllipse(x+270,y+270,30,30);
+*/
 
 //patrate rosii
     painter.fillRect(QRect(51,201,29,29),QBrush(Qt::red));//st sus
@@ -157,5 +164,29 @@ void MyWindow::paintEvent(QPaintEvent *event)
 drawTriangle(painter,startPointX1,startPointY1,endPointX1,endPointY1,endPointX2,endPointY2,Qt::green);
 
 //green
+
+}
+
+void MyWindow::update()
+{//testing code
+
+    qDebug()<<"muie retele";
+    QPainter painter(this);
+    QPen inverter(Qt::magenta);
+    inverter.setWidth(1);
+    float x=10.0f;
+     painter.drawEllipse(x,100,30,30);
+    x+=0.01f;
+}
+
+void MyWindow::Draw()
+{//testing code
+    qDebug()<<"muie retele";
+    QPainter painter(this);
+    QPen inverter(Qt::magenta);
+    inverter.setWidth(1);
+    float x=10.0f;
+     painter.drawEllipse(x,100,30,30);
+    x+=0.01f;
 
 }

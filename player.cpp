@@ -9,6 +9,7 @@ Player::Player(const std::vector<Piece>& nPieces,const int nLabel)
     }
     pieces=nPieces;
     label=nLabel;
+
 }
 int Player::GetNrPiecesHome() const
 {

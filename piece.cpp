@@ -13,3 +13,7 @@ void Piece::UpdatePosition(const Vec2 &newPos)
 {
     position=newPos;
 }
+void Piece::Draw(QPainter& painter)
+{
+painter.drawEllipse(position.x,position.y,playerRay,playerRay);
+}

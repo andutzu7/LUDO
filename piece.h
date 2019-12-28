@@ -2,7 +2,7 @@
 #define PIECE_H
 #include "Vec2.h"
 #include <QPainter>
-
+#define playerRay 20
 class Piece
 {
 private:
@@ -17,7 +17,8 @@ public:
     Vec2 GetPosition() const;
     Qt::GlobalColor GetColor() const;
     void UpdatePosition(const Vec2& newPos);
-
+private slots:
+    void Draw(QPainter& painter);
 };
 
 #endif // PIECE_H
