@@ -20,9 +20,13 @@ public:
     std::vector<QLine> lines;
     MyWindow(QWidget *parent = nullptr);
     ~MyWindow();
+   float x=10.0f;
+    QPainter painter;
+    void DrawTable(QPainter& painter);
+private slots:
     virtual void paintEvent(QPaintEvent *event);
     virtual void update();
-    void Draw();
+
 private:
     Ui::MyWindow *ui;
 };

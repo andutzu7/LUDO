@@ -7,6 +7,8 @@ MyWindow::MyWindow(QWidget *parent)
     , ui(new Ui::MyWindow)
 {
     ui->setupUi(this);
+    QPainter painter(this);
+
 
 const int screenWidth=800;
 const int screenHeight=600;
@@ -21,9 +23,8 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
        timer=new QTimer(this);
        timer->setInterval(500);
        timer->start();
-       connect(timer,SIGNAL(timeout()),this,SLOT(Draw()));
+       connect(timer,SIGNAL(timeout()),this,SLOT(update()));
 
-       qDebug()<<"Aj aici";
     }
 MyWindow::~MyWindow()
 {
@@ -31,9 +32,10 @@ MyWindow::~MyWindow()
 }
 
 //aici hardcodez interfata
-void MyWindow::paintEvent(QPaintEvent *event)
+void MyWindow::DrawTable(QPainter &painter)
 {
-    QPainter painter(this);
+    painter.fillRect(QRect(0,0,600,600),QBrush(Qt::black));
+
     QPen inverter(Qt::white);
     inverter.setWidth(1);
     painter.setBrush(QColor(0,0,0));
@@ -166,27 +168,16 @@ drawTriangle(painter,startPointX1,startPointY1,endPointX1,endPointY1,endPointX2,
 //green
 
 }
+void MyWindow::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    DrawTable(painter);
+    painter.drawEllipse(x,100,30,30);
+
+}
 
 void MyWindow::update()
 {//testing code
-
-    qDebug()<<"muie retele";
-    QPainter painter(this);
-    QPen inverter(Qt::magenta);
-    inverter.setWidth(1);
-    float x=10.0f;
-     painter.drawEllipse(x,100,30,30);
-    x+=0.01f;
-}
-
-void MyWindow::Draw()
-{//testing code
-    qDebug()<<"muie retele";
-    QPainter painter(this);
-    QPen inverter(Qt::magenta);
-    inverter.setWidth(1);
-    float x=10.0f;
-     painter.drawEllipse(x,100,30,30);
-    x+=0.01f;
-
+    x+=5.0f;
+    this->repaint(0,0,600,600);//mandatory to work
 }
