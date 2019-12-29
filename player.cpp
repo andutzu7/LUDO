@@ -15,3 +15,12 @@ int Player::GetNrPiecesHome() const
 {
     return nrOfPiecesHome;
 }
+
+void Player::ShowPlayer()
+{
+    show=true;
+}
+void Player::AddPiece( Piece &p)
+{
+    pieces.push_back(p);
+}

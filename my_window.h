@@ -5,7 +5,10 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <vector>
+#include "player.h"
 #include "rectangle.h"
+
+#define pieceRadius 15
 QT_BEGIN_NAMESPACE
 namespace Ui { class MyWindow; }
 QT_END_NAMESPACE
@@ -16,13 +19,13 @@ class MyWindow : public QMainWindow
 
 public:
     QTimer* timer;
-    std::vector<QRect> rectangles;
-    std::vector<QLine> lines;
+    std::vector<Player> players;
     MyWindow(QWidget *parent = nullptr);
     ~MyWindow();
-   float x=10.0f;
-    QPainter painter;
+   QPainter painter;
     void DrawTable(QPainter& painter);
+    void DrawPlayers(QPainter& painter);
+    void UpdateLabels();
 private slots:
     virtual void paintEvent(QPaintEvent *event);
     virtual void update();

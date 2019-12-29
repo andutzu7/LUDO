@@ -10,9 +10,9 @@ MyWindow::MyWindow(QWidget *parent)
     QPainter painter(this);
 
 
-const int screenWidth=800;
-const int screenHeight=600;
-const int squareDelta=50;
+    const int screenWidth=800;
+    const int screenHeight=600;
+    const int squareDelta=50;
 for (size_t i=0;i<screenWidth;i+=squareDelta)
 {
     for(size_t j=0;j<screenHeight;j+=squareDelta)
@@ -20,12 +20,79 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
         QRect r(i,j,i+squareDelta,j+squareDelta);
     }
 }
+
+for(size_t i=0;i<4;i++)//initializam toti playerii
+{
+    //urmeaza o portiune de cod rusinoasa
+    if(i==0)
+    {
+        std::vector<Piece> pl;
+        Piece p(Vec2(51,61),Qt::red);
+        pl.push_back(p);
+        Piece p2(Vec2(121,61),Qt::red);
+        pl.push_back(p2);
+        Piece p3(Vec2(51,151),Qt::red);
+        pl.push_back(p3);
+        Piece p4(Vec2(121,151),Qt::red);
+        pl.push_back(p4);
+
+        players.emplace_back(pl,i+1);
+
+   }
+   if(i==1) //albastu
+   {
+       std::vector<Piece> pl;
+       Piece p(Vec2(340,61),Qt::blue);
+       pl.push_back(p);
+       Piece p2(Vec2(410,61),Qt::blue);
+       pl.push_back(p2);
+       Piece p3(Vec2(340,151),Qt::blue);
+       pl.push_back(p3);
+       Piece p4(Vec2(410,151),Qt::blue);
+       pl.push_back(p4);
+
+       players.emplace_back(pl,i+1);
+
+   }
+    if(i==2) //green
+   {
+
+
+        std::vector<Piece> pl;
+        Piece p(Vec2(51,330),Qt::green);
+        pl.push_back(p);
+        Piece p2(Vec2(121,330),Qt::green);
+        pl.push_back(p2);
+        Piece p3(Vec2(51,420),Qt::green);
+        pl.push_back(p3);
+        Piece p4(Vec2(121,420),Qt::green);
+        pl.push_back(p4);
+
+        players.emplace_back(pl,i+1);
+   }
+   if(i==3) //yellow
+   {
+
+       std::vector<Piece> pl;
+       Piece p(Vec2(340,330),Qt::yellow);
+       pl.push_back(p);
+       Piece p2(Vec2(410,330),Qt::yellow);
+       pl.push_back(p2);
+       Piece p3(Vec2(340,420),Qt::yellow);
+       pl.push_back(p3);
+       Piece p4(Vec2(410,420),Qt::yellow);
+       pl.push_back(p4);
+
+       players.emplace_back(pl,i+1);
+   }
+
        timer=new QTimer(this);
        timer->setInterval(500);
        timer->start();
        connect(timer,SIGNAL(timeout()),this,SLOT(update()));
 
-    }
+}
+}
 MyWindow::~MyWindow()
 {
     delete ui;
@@ -168,16 +235,34 @@ drawTriangle(painter,startPointX1,startPointY1,endPointX1,endPointY1,endPointX2,
 //green
 
 }
+void MyWindow::UpdateLabels()
+{
+
+}
+void MyWindow::DrawPlayers(QPainter& painter)
+{
+    for(const auto&i: players)
+    {
+        for(size_t j=0;j<i.pieces.size();j++)
+        {
+            QPen inverter(Qt::white);
+            inverter.setWidth(1);
+            painter.setBrush(i.pieces[j].GetColor());
+            painter.setPen(inverter);
+            size_t x=i.pieces[j].GetPosition().x;
+            size_t y=i.pieces[j].GetPosition().y;
+            painter.drawEllipse(x,y,pieceRadius,pieceRadius);
+        }
+    }
+}
 void MyWindow::paintEvent(QPaintEvent *event)
 {
     QPainter painter(this);
     DrawTable(painter);
-    painter.drawEllipse(x,100,30,30);
-
+    DrawPlayers(painter);
 }
 
 void MyWindow::update()
-{//testing code
-    x+=5.0f;
+{
     this->repaint(0,0,600,600);//mandatory to work
 }
