@@ -13,7 +13,15 @@ void Piece::UpdatePosition(const Vec2 &newPos)
 {
     position=newPos;
 }
-void Piece::Draw(QPainter& painter)
+ void Piece::SetVelocity(const Vec2 &newVel)
+ {
+     velocity=newVel;
+ }
+ Vec2 Piece::GetVelocity() const
+ {
+     return velocity;
+ }
+bool Piece::Contains(const Vec2& other)
 {
-painter.drawEllipse(position.x,position.y,playerRay,playerRay);
+    return (position.x<=other.x && (position.x+playerRay)>=other.x && position.y<=other.y && (position.y+playerRay)>=other.y);
 }

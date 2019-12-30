@@ -7,18 +7,24 @@ class Piece
 {
 private:
     Vec2 position;
+    Vec2 velocity;
     Qt::GlobalColor color;
+
 public:
-    Piece(const Vec2& nPos,const Qt::GlobalColor& nColor)
+    Piece(const Vec2& nPos,const Vec2& nVelocity,const Qt::GlobalColor& nColor)
         :
       position(nPos),
+      velocity(nVelocity),
       color(nColor)
         {};
+    bool selected=false;
+    bool inBase=true;
+    bool Contains(const Vec2& other);
     Vec2 GetPosition() const;
+    void SetVelocity(const Vec2& newVel);
+    Vec2 GetVelocity() const;
     Qt::GlobalColor GetColor() const;
     void UpdatePosition(const Vec2& newPos);
-private slots:
-    void Draw(QPainter& painter);
 };
 
 #endif // PIECE_H

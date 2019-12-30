@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>680</width>
-    <height>547</height>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -117,7 +117,7 @@
      <string>Randul jucatorului:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="diceButton">
     <property name="geometry">
      <rect>
       <x>538</x>
@@ -183,7 +183,7 @@
    <widget class="QLabel" name="nr_juc">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>230</x>
       <y>500</y>
       <width>67</width>
       <height>17</height>

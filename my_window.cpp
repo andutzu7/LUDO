@@ -2,6 +2,7 @@
 #include "ui_mywindow.h"
 #include <QDebug>
 #include <string>
+#include <QLayout>
 MyWindow::MyWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MyWindow)
@@ -9,10 +10,10 @@ MyWindow::MyWindow(QWidget *parent)
     ui->setupUi(this);
     QPainter painter(this);
 
-
     const int screenWidth=800;
     const int screenHeight=600;
     const int squareDelta=50;
+    ui->valzar->setText(QString::fromStdString(""));
 for (size_t i=0;i<screenWidth;i+=squareDelta)
 {
     for(size_t j=0;j<screenHeight;j+=squareDelta)
@@ -27,13 +28,13 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
     if(i==0)
     {
         std::vector<Piece> pl;
-        Piece p(Vec2(51,61),Qt::red);
+        Piece p(Vec2(51,61),Vec2(1,0),Qt::red);
         pl.push_back(p);
-        Piece p2(Vec2(121,61),Qt::red);
+        Piece p2(Vec2(121,61),Vec2(1,0),Qt::red);
         pl.push_back(p2);
-        Piece p3(Vec2(51,151),Qt::red);
+        Piece p3(Vec2(51,151),Vec2(1,0),Qt::red);
         pl.push_back(p3);
-        Piece p4(Vec2(121,151),Qt::red);
+        Piece p4(Vec2(121,151),Vec2(1,0),Qt::red);
         pl.push_back(p4);
 
         players.emplace_back(pl,i+1);
@@ -42,13 +43,13 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
    if(i==1) //albastu
    {
        std::vector<Piece> pl;
-       Piece p(Vec2(340,61),Qt::blue);
+       Piece p(Vec2(340,61),Vec2(0,1),Qt::blue);
        pl.push_back(p);
-       Piece p2(Vec2(410,61),Qt::blue);
+       Piece p2(Vec2(410,61),Vec2(0,1),Qt::blue);
        pl.push_back(p2);
-       Piece p3(Vec2(340,151),Qt::blue);
+       Piece p3(Vec2(340,151),Vec2(0,1),Qt::blue);
        pl.push_back(p3);
-       Piece p4(Vec2(410,151),Qt::blue);
+       Piece p4(Vec2(410,151),Vec2(0,1),Qt::blue);
        pl.push_back(p4);
 
        players.emplace_back(pl,i+1);
@@ -59,13 +60,13 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
 
 
         std::vector<Piece> pl;
-        Piece p(Vec2(51,330),Qt::green);
+        Piece p(Vec2(51,330),Vec2(0,-1),Qt::green);
         pl.push_back(p);
-        Piece p2(Vec2(121,330),Qt::green);
+        Piece p2(Vec2(121,330),Vec2(0,-1),Qt::green);
         pl.push_back(p2);
-        Piece p3(Vec2(51,420),Qt::green);
+        Piece p3(Vec2(51,420),Vec2(0,-1),Qt::green);
         pl.push_back(p3);
-        Piece p4(Vec2(121,420),Qt::green);
+        Piece p4(Vec2(121,420),Vec2(0,-1),Qt::green);
         pl.push_back(p4);
 
         players.emplace_back(pl,i+1);
@@ -74,13 +75,13 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
    {
 
        std::vector<Piece> pl;
-       Piece p(Vec2(340,330),Qt::yellow);
+       Piece p(Vec2(340,330),Vec2(-1,0),Qt::yellow);
        pl.push_back(p);
-       Piece p2(Vec2(410,330),Qt::yellow);
+       Piece p2(Vec2(410,330),Vec2(-1,0),Qt::yellow);
        pl.push_back(p2);
-       Piece p3(Vec2(340,420),Qt::yellow);
+       Piece p3(Vec2(340,420),Vec2(-1,0),Qt::yellow);
        pl.push_back(p3);
-       Piece p4(Vec2(410,420),Qt::yellow);
+       Piece p4(Vec2(410,420),Vec2(-1,0),Qt::yellow);
        pl.push_back(p4);
 
        players.emplace_back(pl,i+1);
@@ -90,6 +91,7 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
        timer->setInterval(500);
        timer->start();
        connect(timer,SIGNAL(timeout()),this,SLOT(update()));
+       connect(this->ui->diceButton, SIGNAL(clicked()), this, SLOT(diceButton_onClicked()));
 
 }
 }
@@ -142,14 +144,7 @@ void MyWindow::DrawTable(QPainter &painter)
           continue;
         painter.drawLine(QLine(200,20+i*30,290,20+i*30));
       }
-/*
-      int x=55,y=55;
-        painter.drawEllipse(x,y,30,30);
-        painter.drawEllipse(x+270,y,30,30);
-        painter.drawEllipse(x,y+270,30,30);
-        painter.drawEllipse(x+270,y+270,30,30);
-*/
-
+      ;
 //patrate rosii
     painter.fillRect(QRect(51,201,29,29),QBrush(Qt::red));//st sus
     //for care deneseaza 5 patrate rosii
@@ -237,7 +232,17 @@ drawTriangle(painter,startPointX1,startPointY1,endPointX1,endPointY1,endPointX2,
 }
 void MyWindow::UpdateLabels()
 {
-
+    ui->nr_juc->setText(QString::fromStdString(std::to_string(4))); //de adaugat aici nr returnat de server
+    ui->labelPlayer->setText(QString::fromStdString(std::to_string(currentPlayer)));
+}
+void MyWindow::diceButton_onClicked()
+{
+      int roll;
+      int min = 1; // the min number a die can roll is 1
+      int max = 6;// this->dieSize; // the max value is the die size
+      roll = rand() % (max - min + 1) + min;
+      this->ui->valzar->setText(QString::fromStdString(std::to_string(roll)));
+       diceWRolled=true;
 }
 void MyWindow::DrawPlayers(QPainter& painter)
 {
@@ -260,9 +265,69 @@ void MyWindow::paintEvent(QPaintEvent *event)
     QPainter painter(this);
     DrawTable(painter);
     DrawPlayers(painter);
-}
 
+}
+void MyWindow::Game()
+{
+    std::vector<Vec2> startingPositions={{56,205},{266,56},{207,416},{417,266}};
+
+    if(!gameOver)
+    {
+        if(diceWRolled)//mutam piesa
+        {
+            int amount = ui->valzar->text().toInt();
+            //some code for testing purposes
+            //currentplayer-1 ptc eu afisez nr ala pe ecran
+            if(amount==6)//scoatem o piesa
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if( players[currentPlayer-1].pieces[i].inBase==true)
+                 {
+                     players[currentPlayer-1].pieces[i].inBase=false;
+
+                     players[currentPlayer-1].pieces[i].UpdatePosition(startingPositions.at(currentPlayer-1));
+
+                        break;
+                 }
+
+                }
+            }
+            for(int i=0;i<4;i++)
+            {
+                if(players[currentPlayer-1].pieces[i].selected )
+            {
+                    Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
+                    Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
+                    Vec2 delta={15,15};//Cat ma deplasez pe x i pe y
+                    while(amount)
+                    {
+                        players[currentPlayer-1].pieces[i].UpdatePosition(currentPosition+(delta*currentVelocity));
+                        amount--;
+                        }
+
+                }
+
+            players[currentPlayer-1].pieces[i].selected=false;
+            }
+            diceWRolled=false;
+            if(currentPlayer!=4)
+            {
+                currentPlayer++;
+
+            }
+            else
+            {
+               currentPlayer=1;
+            }
+        }
+
+
+    }
+}
 void MyWindow::update()
 {
+    Game();
+    UpdateLabels();
     this->repaint(0,0,600,600);//mandatory to work
 }

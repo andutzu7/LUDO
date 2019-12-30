@@ -7,6 +7,7 @@
 #include <vector>
 #include "player.h"
 #include "rectangle.h"
+#include <QPushButton>
 
 #define pieceRadius 15
 QT_BEGIN_NAMESPACE
@@ -22,13 +23,18 @@ public:
     std::vector<Player> players;
     MyWindow(QWidget *parent = nullptr);
     ~MyWindow();
-   QPainter painter;
+    QPainter painter;
+    void  Game();
     void DrawTable(QPainter& painter);
     void DrawPlayers(QPainter& painter);
     void UpdateLabels();
+    int currentPlayer=1;
+    bool gameOver=false;
+    bool diceWRolled=false;
 private slots:
     virtual void paintEvent(QPaintEvent *event);
     virtual void update();
+    virtual void diceButton_onClicked();
 
 private:
     Ui::MyWindow *ui;
