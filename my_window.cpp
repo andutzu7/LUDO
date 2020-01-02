@@ -288,10 +288,477 @@ void MyWindow::paintEvent(QPaintEvent *event)
     DrawPlayers(painter);
 
 }
+void MyWindow::UpdateVelocity(int nrOfSquaresTraveled)
+{
+    std::vector<Vec2>redVel=   {Vec2(0,-1),Vec2(1,0),Vec2(0,1),Vec2(1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,-1),Vec2(-1,0),Vec2(0,-1),Vec2(1,0)};
+    std::vector<Vec2>blueVel=  {Vec2(1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,-1),Vec2(-1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,1)};
+    std::vector<Vec2>greenVel= {Vec2(-1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,1),Vec2(1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,1),Vec2(-1,0),Vec2(0,-1) };
+    std::vector<Vec2>yellowVel={Vec2(0,1),Vec2(-1,0),Vec2(0,-1),Vec2(-1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,-1),Vec2(1,0),Vec2(0,1),Vec2(1,0),Vec2(0,1),Vec2(-1,0)};
+    switch(nrOfSquaresTraveled)
+{
+
+    case 6:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[0]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+
+            for(int i=0;i<4;i++)
+            if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                players[currentPlayer-1].pieces[i].SetVelocity(blueVel[0]);
+        }
+        if(currentPlayer==3)//verde
+        {
+
+            for(int i=0;i<4;i++)
+            if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                players[currentPlayer-1].pieces[i].SetVelocity(greenVel[0]);
+        }
+        if(currentPlayer==4)//galben
+        {
+
+            for(int i=0;i<4;i++)
+            if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[0]);
+        }
+        break;
+    case 12:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[1]);
+            }
+        }
+          if(currentPlayer==2)//albastru
+          {
+              for(int i=0;i<4;i++)
+              {
+               if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                   players[currentPlayer-1].pieces[i].SetVelocity(blueVel[1]);
+              }
+          }
+         if(currentPlayer==3)//verde
+         {
+             for(int i=0;i<4;i++)
+             {
+              if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                  players[currentPlayer-1].pieces[i].SetVelocity(greenVel[1]);
+             }
+         }
+                  if(currentPlayer==4)//galben
+
+                  {
+                      for(int i=0;i<4;i++)
+                      {
+                       if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                           players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[1]);
+                      }
+                  }
+                      break;
+    case 14:
+        if(currentPlayer==1)//ROSU
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(redVel[2]);
+                }
+            }
+            if(currentPlayer==2)//albastru
+
+                {
+                    for(int i=0;i<4;i++)
+                    {
+                     if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                         players[currentPlayer-1].pieces[i].SetVelocity(blueVel[2]);
+                    }
+                }
+                if(currentPlayer==3)//verde
+                    {
+                        for(int i=0;i<4;i++)
+                        {
+                         if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                             players[currentPlayer-1].pieces[i].SetVelocity(greenVel[2]);
+                        }
+                    }
+                    if(currentPlayer==4)//galben
+                        {
+                            for(int i=0;i<4;i++)
+                            {
+                             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[2]);
+                            }
+                        }
+        break;
+    case 20:
+        if(currentPlayer==1)//ROSU
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(redVel[3]);
+                }
+            }
+        if(currentPlayer==2)//albastru
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(blueVel[3]);
+                }
+            }
+        if(currentPlayer==3)//verde
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(greenVel[3]);
+                }
+            }
+        if(currentPlayer==4)//galbe
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[3]);
+                }
+            }
+        break;
+    case 26:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[4]);
+            }
+        }
+
+
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[4]);
+            }
+        }
+
+            if(currentPlayer==3)//verde
+            {
+                for(int i=0;i<4;i++)
+                {
+                 if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                     players[currentPlayer-1].pieces[i].SetVelocity(greenVel[4]);
+                }
+            }
+
+                if(currentPlayer==4)//galben
+                {
+                    for(int i=0;i<4;i++)
+                    {
+                     if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                         players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[4]);
+                    }
+                }
+
+        break;
+    case 28:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[5]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[5]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[5]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[5]);
+            }
+        }
+
+        break;
+    case 34:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[6]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[6]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[6]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[6]);
+            }
+        }
+
+        break;
+    case 40:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[7]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[7]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[7]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[7]);
+            }
+        }
+
+        break;
+    case 42:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[8]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[8]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[8]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[8]);
+            }
+        }
+
+        break;
+    case 48:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[9]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[9]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[9]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[9]);
+            }
+        }
+
+        break;
+    case 54:
+        if( currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[10]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[10]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[10]);
+            }
+        }
+
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[10]);
+            }
+        }
+
+        break;
+    case 55:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(redVel[11]);
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(blueVel[11]);
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(greenVel[11]);
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(yellowVel[11]);
+            }
+        }
+
+        break;
+    case 61:
+        if(currentPlayer==1)//ROSU
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(Vec2(0,0));
+            }
+        }
+        if(currentPlayer==2)//albastru
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(Vec2(0,0));
+            }
+        }
+        if(currentPlayer==3)//verde
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(Vec2(0,0));
+            }
+        }
+        if(currentPlayer==4)//galben
+        {
+            for(int i=0;i<4;i++)
+            {
+             if(players[currentPlayer-1].pieces[i].selected)//schimbam piesa care se misca
+                 players[currentPlayer-1].pieces[i].SetVelocity(Vec2(0,0));
+            }
+        }
+
+        break;
+    }
+
+}//de adaugat ca sa nu se cointinue jocu pana nu a mutat colegu piesa,colliding condition si win condition si rahatu ala cu nr exact
 void MyWindow::Game()
 {
     std::vector<Vec2> startingPositions={{56,205},{266,56},{207,416},{417,266}};
-
+    std::vector<int> dontDrawIndexes={5,19,33,47};
     if(!gameOver)
     {
         if(diceWRolled)//mutam piesa
@@ -299,9 +766,10 @@ void MyWindow::Game()
             int amount = ui->valzar->text().toInt();
             //some code for testing purposes
             //currentplayer-1 ptc eu afisez nr ala pe ecran
+            bool moved=false;
             if(amount==6)//scoatem o piesa
-            {
-                for(int i=0;i<4;i++)
+            {   int i;
+                for(i=0;i<4;i++)
                 {
                  if( players[currentPlayer-1].pieces[i].inBase==true)
                  {
@@ -309,26 +777,29 @@ void MyWindow::Game()
 
                      players[currentPlayer-1].pieces[i].UpdatePosition(startingPositions.at(currentPlayer-1));
 
+                     players[currentPlayer-1].pieces[i].selected=true;
                         break;
                  }
 
                 }
             }
-            for(int i=0;i<4;i++)
+            int i;
+            for( i=0;i<4;i++)
             {
                 if(players[currentPlayer-1].pieces[i].selected )
             {
                     if(players[currentPlayer-1].pieces[i].inBase==false)
                     {
+
                     Vec2 delta={30,30};//Cat ma deplasez pe x i pe y
                     qDebug()<<amount<<endl;
                     while(amount)
                     {
+                        players[currentPlayer-1].pieces[i].traveledSquares++;
+                        UpdateVelocity(players[currentPlayer-1].pieces[i].traveledSquares);
                         Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
                         Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
                         players[currentPlayer-1].pieces[i].UpdatePosition(currentPosition+(delta*currentVelocity));
-                        Vec2 v=delta*currentVelocity;
-                        qDebug()<<v.x<<" "<<v.y;
                         amount--;
                         //nu e chiar asa elegant dar nu imi vine nici o alta idee cum sa nu fac insta update
                        auto Sleep=[](int ms)
@@ -336,26 +807,40 @@ void MyWindow::Game()
                            struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
                                nanosleep(&ts, NULL);
                        };
-                        this->repaint(0,0,600,600);//mandatory to work
-                        Sleep(500); //ca sa nu se refaca desenu instant
+
+                       if(std::find(dontDrawIndexes.begin(),dontDrawIndexes.end(),players[currentPlayer-1].pieces[i].traveledSquares)==dontDrawIndexes.end())//daca nr parcurs pna acum nu se afla printre astea
+                       {
+                           this->repaint(0,0,600,600);//mandatory to work
+                           Sleep(500); //ca sa nu se refaca desenu instant
+
+                       }
+                       else
+                       {
+                       amount++;//pt cum am proiectat jocu ar fi fost un patrat pierdere la colturi;
+                       }
                     }
 
                     }
 
-             }
+            }
+
 
             players[currentPlayer-1].pieces[i].selected=false;
+
             }
             diceWRolled=false;
-            if(currentPlayer!=4)
+
+                if(currentPlayer!=4)
             {
                 currentPlayer++;
 
             }
-            else
+                else
             {
                currentPlayer=1;
             }
+
+
         }
 
 

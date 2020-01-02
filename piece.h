@@ -19,6 +19,7 @@ public:
         {};
     bool selected=false;
     bool inBase=true;
+    int traveledSquares=0;
     bool Contains(const Vec2& other);
     Vec2 GetPosition() const;
     void SetVelocity(const Vec2& newVel);

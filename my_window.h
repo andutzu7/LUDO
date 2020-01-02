@@ -19,12 +19,14 @@ class MyWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    int j=0;
     QTimer* timer;
     std::vector<Player> players;
     MyWindow(QWidget *parent = nullptr);
     ~MyWindow();
     QPainter painter;
     void  Game();
+    void UpdateVelocity(int nrOfSquaresTraveled);
     void DrawTable(QPainter& painter);
     void DrawPlayers(QPainter& painter);
     void  mousePressEvent(QMouseEvent* event);
