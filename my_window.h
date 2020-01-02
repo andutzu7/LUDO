@@ -8,7 +8,7 @@
 #include "player.h"
 #include "rectangle.h"
 #include <QPushButton>
-
+#include <QMouseEvent>
 #define pieceRadius 15
 QT_BEGIN_NAMESPACE
 namespace Ui { class MyWindow; }
@@ -27,6 +27,7 @@ public:
     void  Game();
     void DrawTable(QPainter& painter);
     void DrawPlayers(QPainter& painter);
+    void  mousePressEvent(QMouseEvent* event);
     void UpdateLabels();
     int currentPlayer=1;
     bool gameOver=false;
@@ -35,7 +36,6 @@ private slots:
     virtual void paintEvent(QPaintEvent *event);
     virtual void update();
     virtual void diceButton_onClicked();
-
 private:
     Ui::MyWindow *ui;
 };

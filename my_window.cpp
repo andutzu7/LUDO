@@ -9,7 +9,6 @@ MyWindow::MyWindow(QWidget *parent)
 {
     ui->setupUi(this);
     QPainter painter(this);
-
     const int screenWidth=800;
     const int screenHeight=600;
     const int squareDelta=50;
@@ -94,6 +93,8 @@ for(size_t i=0;i<4;i++)//initializam toti playerii
        connect(this->ui->diceButton, SIGNAL(clicked()), this, SLOT(diceButton_onClicked()));
 
 }
+setMouseTracking(true);
+
 }
 MyWindow::~MyWindow()
 {
@@ -235,6 +236,26 @@ void MyWindow::UpdateLabels()
     ui->nr_juc->setText(QString::fromStdString(std::to_string(4))); //de adaugat aici nr returnat de server
     ui->labelPlayer->setText(QString::fromStdString(std::to_string(currentPlayer)));
 }
+void MyWindow::mousePressEvent(QMouseEvent *event)
+{
+    for(auto& i:players) //vedem care/daca o piesa a fost selectata
+    {
+        for(int j=0;j<4;j++)
+        {
+            int x=event->pos().x();
+            int y=event->pos().y();
+            if(i.pieces[j].Contains(Vec2(x,y)))
+            {
+                i.pieces[j].selected=true;
+
+                qDebug()<<"AM SELECTAT O PIESA";
+                break;
+            }
+
+        }
+    }
+
+}
 void MyWindow::diceButton_onClicked()
 {
       int roll;
@@ -297,16 +318,31 @@ void MyWindow::Game()
             {
                 if(players[currentPlayer-1].pieces[i].selected )
             {
-                    Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
-                    Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
-                    Vec2 delta={15,15};//Cat ma deplasez pe x i pe y
+                    if(players[currentPlayer-1].pieces[i].inBase==false)
+                    {
+                    Vec2 delta={30,30};//Cat ma deplasez pe x i pe y
+                    qDebug()<<amount<<endl;
                     while(amount)
                     {
+                        Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
+                        Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
                         players[currentPlayer-1].pieces[i].UpdatePosition(currentPosition+(delta*currentVelocity));
+                        Vec2 v=delta*currentVelocity;
+                        qDebug()<<v.x<<" "<<v.y;
                         amount--;
-                        }
+                        //nu e chiar asa elegant dar nu imi vine nici o alta idee cum sa nu fac insta update
+                       auto Sleep=[](int ms)
+                       {
+                           struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+                               nanosleep(&ts, NULL);
+                       };
+                        this->repaint(0,0,600,600);//mandatory to work
+                        Sleep(500); //ca sa nu se refaca desenu instant
+                    }
 
-                }
+                    }
+
+             }
 
             players[currentPlayer-1].pieces[i].selected=false;
             }
