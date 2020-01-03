@@ -20,10 +20,12 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
         QRect r(i,j,i+squareDelta,j+squareDelta);
     }
 }
+     this->ui->text_cast->hide();
+    this->ui->nr_cast->hide();
 
 for(size_t i=0;i<4;i++)//initializam toti playerii
 {
-    //urmeaza o portiune de cod rusinoasa
+    //urmeaza o portiune de-9 cod rusinoasa
     if(i==0)
     {
         std::vector<Piece> pl;
@@ -248,7 +250,6 @@ void MyWindow::mousePressEvent(QMouseEvent *event)
             {
                 i.pieces[j].selected=true;
 
-                qDebug()<<"AM SELECTAT O PIESA";
                 break;
             }
 
@@ -754,7 +755,7 @@ void MyWindow::UpdateVelocity(int nrOfSquaresTraveled)
         break;
     }
 
-}//de adaugat ca sa nu se cointinue jocu pana nu a mutat colegu piesa,colliding condition si win condition si rahatu ala cu nr exact
+}// win condition
 void MyWindow::Game()
 {
     std::vector<Vec2> startingPositions={{56,205},{266,56},{207,416},{417,266}};
@@ -766,7 +767,7 @@ void MyWindow::Game()
             int amount = ui->valzar->text().toInt();
             //some code for testing purposes
             //currentplayer-1 ptc eu afisez nr ala pe ecran
-            bool moved=false;
+
             if(amount==6)//scoatem o piesa
             {   int i;
                 for(i=0;i<4;i++)
@@ -792,10 +793,50 @@ void MyWindow::Game()
                     {
 
                     Vec2 delta={30,30};//Cat ma deplasez pe x i pe y
-                    qDebug()<<amount<<endl;
-                    while(amount)
+
+
+                    if(players[currentPlayer-1].pieces[i].inFinalArea)
+                    {
+
+                        if( players[currentPlayer-1].pieces[i].traveledSquares+amount!=61)//daca nu pica un nr exact dupa ce esti in area resp
+                            amount=0;
+                        if(players[currentPlayer-1].pieces[i].traveledSquares+amount==61)
+                        {
+                        players[currentPlayer-1].nrOfPiecesHome++;
+                            if(players[currentPlayer-1].nrOfPiecesHome==4)
+                            {
+                                gameOver=true;
+                                this->ui->nr_cast->setText(QString::fromStdString(std::to_string(currentPlayer-1)));
+                                this->ui->text_cast->show();
+                                this->ui->nr_cast->show();
+                            }
+                        }
+                        UpdateVelocity(players[currentPlayer-1].pieces[i].traveledSquares);
+                        Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
+                        Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
+                        players[currentPlayer-1].pieces[i].UpdatePosition(currentPosition+(delta*currentVelocity));
+                        amount--;
+                        //nu e chiar asa elegant dar nu imi vine nici o alta idee cum sa nu fac insta update
+                       auto Sleep=[](int ms)
+                       {
+                           struct timespec ts = { ms / 1000, (ms % 1000) * 1000 * 1000 };
+                               nanosleep(&ts, NULL);
+                       };
+
+                       if(std::find(dontDrawIndexes.begin(),dontDrawIndexes.end(),players[currentPlayer-1].pieces[i].traveledSquares)==dontDrawIndexes.end())//daca nr parcurs pna acum nu se afla printre astea
+                       {
+                           this->repaint(0,0,600,600);//mandatory to work
+                           Sleep(500); //ca sa nu se refaca desenu instant
+
+                       }
+                    }
+                    else
+                      {
+                        while(amount)
                     {
                         players[currentPlayer-1].pieces[i].traveledSquares++;
+                        if( players[currentPlayer-1].pieces[i].traveledSquares>55 )
+                            players[currentPlayer-1].pieces[i].inFinalArea=true;
                         UpdateVelocity(players[currentPlayer-1].pieces[i].traveledSquares);
                         Vec2 currentPosition=players[currentPlayer-1].pieces[i].GetPosition();
                         Vec2 currentVelocity=players[currentPlayer-1].pieces[i].GetVelocity();
@@ -819,12 +860,11 @@ void MyWindow::Game()
                        amount++;//pt cum am proiectat jocu ar fi fost un patrat pierdere la colturi;
                        }
                     }
+                    }
 
                     }
 
             }
-
-
             players[currentPlayer-1].pieces[i].selected=false;
 
             }
@@ -851,4 +891,5 @@ void MyWindow::update()
     Game();
     UpdateLabels();
     this->repaint(0,0,600,600);//mandatory to work
+
 }

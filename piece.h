@@ -18,6 +18,7 @@ public:
       color(nColor)
         {};
     bool selected=false;
+    bool inFinalArea=false;
     bool inBase=true;
     int traveledSquares=0;
     bool Contains(const Vec2& other);

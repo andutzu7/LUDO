@@ -6,9 +6,10 @@ class Player
 {
 private:
     int label;
-    int nrOfPiecesHome=0;
     bool show=false;
 public:
+
+    int nrOfPiecesHome=0;
     Player()=default;
     Player(const std::vector<Piece>& nPieces,const int nLabel);
     int GetNrPiecesHome() const;
