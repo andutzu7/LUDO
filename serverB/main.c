@@ -17,7 +17,7 @@ int main(int argc , char *argv[])
 {
 	int ok = 1;
 	int listenSocket , len , newSocket , client_socket[SOMAXCONN] ,
-        activity, valread , fd;
+        activity, valread , fd,connections=0;
 	int max_fd;
 	struct sockaddr_in server;
 
@@ -89,7 +89,7 @@ int main(int argc , char *argv[])
 		//asteptam pana cand un semnal este dat de catre client
 		activity = select( max_fd + 1 , &readfds , NULL , NULL , NULL);
 
-		if ((activity < 0)/* && (errno!=EINTR)*/)
+		if ((activity < 0))
 		{
 			printf("Eroare la select");
 		}
@@ -118,7 +118,7 @@ int main(int argc , char *argv[])
 				{
 					client_socket[i] = newSocket;
 					printf("Adding the new client to the list as clieent nr%d\n" , i);
-
+                    connections++;
 					break;
 				}
 			}
@@ -134,8 +134,9 @@ int main(int argc , char *argv[])
 				if ((valread = read( fd , buf, 1024)) == 0)
 				{
 					getpeername(fd , (struct sockaddr*)&server ,(socklen_t*)&len);
-					printf("Client disconnected , ip %s , port %d \n" ,
+                        printf("Client disconnected , ip %s , port %d \n" ,
 						inet_ntoa(server.sin_addr) , ntohs(server.sin_port));
+                 connections--;
                     //inchidem socketul
 					close( fd );
 					//marcam in vector cu 0 ca sa refolosim pozitia
@@ -149,6 +150,12 @@ int main(int argc , char *argv[])
 					send(fd , buf , strlen(buf) , 0 );
 				}
 			}
+		}
+	for (int i = 0; i < SOMAXCONN; i++)
+		{
+		char str[100];
+        sprintf(str,"%d",connections);
+        send(newSocket,str,4,0);
 		}
 	}
 
