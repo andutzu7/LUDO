@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,13 +20,15 @@ SOURCES += \
     main.cpp \
     my_window.cpp \
     piece.cpp \
-    player.cpp
+    player.cpp\
+    socket.cpp
 
 HEADERS += \
     Vec2.h \
     my_window.h \
     piece.h \
-    player.h
+    player.h\
+    socket.h
 
 FORMS += \
     mywindow.ui
