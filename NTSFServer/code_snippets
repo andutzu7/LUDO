@@ -1,0 +1,43 @@
+
+       //for(int j=0;j<i;j++)
+    //{
+      //  pthread_join(th[i],NULL);
+    //}
+
+
+
+ //   close(clientSocket);
+
+
+ //  pthread_mutex_lock(&lock);
+/*
+
+    int clientSocket=*((int*)client_Socket);
+
+    //am gasit problema,trebuia sa eliberez memoria manual
+    free(client_Socket);
+    char buff[1024];
+    int readBytes;
+    int recievedMsSize=0;
+    //in acest while citim mesajul transmis de client
+    while((readBytes=read(clientSocket,buff+recievedMsSize,sizeof(buff)-recievedMsSize-1)) > 0)//-1 is for the ending character of the string
+    {
+
+        recievedMsSize+=readBytes;
+        //conditia de oprire din citit
+        if(recievedMsSize>1023 || buff[recievedMsSize-1]=='\n')
+        {
+            break;
+        }
+    }
+
+    // buff[recievedMsSize-1]='\0';
+    fflush(stdout);
+    printf("Server says:%s \n",buff);
+    write(clientSocket,buff,recievedMsSize);
+
+
+    //pthread_mutex_unlock(&lock);
+
+close(clientSocket);
+*/

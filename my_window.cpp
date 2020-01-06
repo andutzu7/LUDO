@@ -23,7 +23,7 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
      this->ui->text_cast->hide();
     this->ui->nr_cast->hide();
 
-for(size_t i=0;i<4;i++)//initializam toti playerii
+for(size_t i=0;i<playersNumber;i++)//initializam toti playerii
 {
     //urmeaza o portiune de-9 cod rusinoasa
     if(i==0)
@@ -235,7 +235,7 @@ drawTriangle(painter,startPointX1,startPointY1,endPointX1,endPointY1,endPointX2,
 }
 void MyWindow::UpdateLabels()
 {
-    ui->nr_juc->setText(QString::fromStdString(std::to_string(4))); //de adaugat aici nr returnat de server
+    ui->nr_juc->setText(QString::fromStdString(std::to_string(playersNumber)));
     ui->labelPlayer->setText(QString::fromStdString(std::to_string(currentPlayer)));
 }
 void MyWindow::mousePressEvent(QMouseEvent *event)
@@ -764,6 +764,7 @@ void MyWindow::Game()
     {
         if(diceWRolled)//mutam piesa
         {
+            players[currentPlayer].nrOfMoves++;
             int amount = ui->valzar->text().toInt();
             //some code for testing purposes
             //currentplayer-1 ptc eu afisez nr ala pe ecran
@@ -809,6 +810,7 @@ void MyWindow::Game()
                                 this->ui->nr_cast->setText(QString::fromStdString(std::to_string(currentPlayer-1)));
                                 this->ui->text_cast->show();
                                 this->ui->nr_cast->show();
+                            //SEND TO THE SERVER THE NROFMOVES
                             }
                         }
                         UpdateVelocity(players[currentPlayer-1].pieces[i].traveledSquares);
@@ -870,7 +872,7 @@ void MyWindow::Game()
             }
             diceWRolled=false;
 
-                if(currentPlayer!=4)
+                if(currentPlayer!=(int)playersNumber)
             {
                 currentPlayer++;
 

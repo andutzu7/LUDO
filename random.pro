@@ -21,6 +21,7 @@ SOURCES += \
     my_window.cpp \
     piece.cpp \
     player.cpp\
+    sgamedata.cpp \
     socket.cpp
 
 HEADERS += \
@@ -28,6 +29,7 @@ HEADERS += \
     my_window.h \
     piece.h \
     player.h\
+    sgamedata.h \
     socket.h
 
 FORMS += \

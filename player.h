@@ -15,7 +15,7 @@ public:
     int GetNrPiecesHome() const;
     void ShowPlayer();
     void AddPiece( Piece& p);
-
+    int nrOfMoves=0;
 
     std::vector<Piece> pieces;
 };

@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1578275681 source:/home/osboxes/Desktop/NTSFServer/main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<stdbool.h>
+	<limits.h>
+	<pthread.h>
+

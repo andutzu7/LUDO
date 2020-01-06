@@ -19,7 +19,8 @@ class MyWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    int j=0;
+    int j=0;//???
+    size_t playersNumber=2;
     QTimer* timer;
     std::vector<Player> players;
     MyWindow(QWidget *parent = nullptr);

@@ -1,5 +1,5 @@
 #include "my_window.h"
-
+#include "socket.h"
 #include <QApplication>
 void onUserCreate()
 {
@@ -17,6 +17,10 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MyWindow w;
+    mySocket s;
+    s.Connect();
+    s.Read();
     w.show();
-    return a.exec();
+    a.exec();
+    return 0;
 }
