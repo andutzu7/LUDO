@@ -19,12 +19,29 @@ void mySocket::Connect()
         qDebug()<<"Aiurea";
     }
     updateRate=new QTimer(this);
-    updateRate->setInterval(500);
+    updateRate->setInterval(5000);
     updateRate->start();
     connect(updateRate,SIGNAL(timeout()),this,SLOT(Read()));
+    updateRate->setInterval(5000);
+    updateRate->start();
+    connect(updateRate,SIGNAL(timeout()),this,SLOT(writeData()));
+
 
 }
+bool mySocket::writeData()
+{
+    QByteArray q=QByteArray('m',10);
+    if(socket->state() == QAbstractSocket::ConnectedState)
+        {
+        socket->write(q);
+        qDebug()<<"WROTE SHIT";
 
+        return socket->waitForBytesWritten();
+    }
+        else
+            return false;
+
+}
 void mySocket::Read()
 {
     socket->waitForBytesWritten(1000);
@@ -32,5 +49,4 @@ void mySocket::Read()
     qDebug()<<"Reading"<<socket->bytesAvailable();
     qDebug()<<socket->readAll()<<endl;
     qDebug()<<socket->readAll()<<endl;
-
 }

@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1578489462 source:/home/osboxes/Desktop/servv/main.c
+	<sys/socket.h>
+	<arpa/inet.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<pthread.h>
+	<sys/types.h>
+	<signal.h>
+

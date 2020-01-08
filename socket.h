@@ -1,6 +1,6 @@
 #ifndef SOCKET_H
 #define SOCKET_H
-#define PORT 2024
+#define PORT 2026
 #include <QObject>
 #include <QTcpSocket>
 #include <QTimer>
@@ -17,6 +17,7 @@ public:
 signals:
 public slots:
  virtual void Read();
+ bool writeData();
 private:
     QTcpSocket* socket;
 };
