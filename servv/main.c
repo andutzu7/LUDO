@@ -99,7 +99,7 @@ void *HandleConnections(void *th)
     clientThread *cl = (clientThread *)th;
 
     bzero(buff,1024);
-
+int e=3;
     while(1)
     {
         if (stop)
@@ -113,7 +113,9 @@ void *HandleConnections(void *th)
         {
             if(strlen(buff) > 0)
             {
-                SendData(buff,0); //testing purposes,trebuie modificat
+                sprintf(buff,"%d",e);
+                e++;
+                SendData(buff,cl->threadId); //testing purposes,trebuie modificat
                 printf("%s\n", buff);
             }
         }
