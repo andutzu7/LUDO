@@ -32,6 +32,7 @@ void InsertClient(clientThread *cl)
 {
     pthread_mutex_lock(&clients_mutex);
 
+
     for(int i=0; i < MAXCLIENTS; ++i)
     {
         if(!clients[i])
@@ -56,6 +57,8 @@ void RemoveClient(int id)
             if(clients[i]->threadId == id)
             {
                 clients[i] = NULL;
+                connections=i;//a bug s solutin
+
                 break;
             }
         }
@@ -94,14 +97,21 @@ void *HandleConnections(void *th)
 
     char buff[1024];
     int stop = 0;
-
+    printf("%d \n",connections);
     connections++;
+    sprintf(buff,"%d",connections);
+
+    for(int i=0;i<connections;i++)
+    {
+    SendData(buff,i);
+    }
+
     clientThread *cl = (clientThread *)th;
 
     bzero(buff,1024);
-int e=3;
     while(1)
     {
+    printf("Ma preg sa citesc \n");
         if (stop)
         {
             break;
@@ -113,8 +123,7 @@ int e=3;
         {
             if(strlen(buff) > 0)
             {
-                sprintf(buff,"%d",e);
-                e++;
+
                 SendData(buff,cl->threadId); //testing purposes,trebuie modificat
                 printf("%s\n", buff);
             }
@@ -191,7 +200,7 @@ int main()
             char errorMSG[100]="Numarul maxim de clienti a fost deja atins.\n";
             write(clientfd, errorMSG, strlen(errorMSG));
             close(clientfd);
-
+            connections--;
         }
 
         //initializam noul client

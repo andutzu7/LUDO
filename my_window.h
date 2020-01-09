@@ -8,6 +8,7 @@
 #include "player.h"
 #include "rectangle.h"
 #include <QPushButton>
+#include "socket.h"
 #include <QMouseEvent>
 #define pieceRadius 15
 QT_BEGIN_NAMESPACE
@@ -19,14 +20,16 @@ class MyWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    mySocket s;
     int j=0;//???
-    size_t playersNumber=2;
+    size_t playersNumber=1;
     QTimer* timer;
     std::vector<Player> players;
     MyWindow(QWidget *parent = nullptr);
     ~MyWindow();
     QPainter painter;
     void  Game();
+    void InitPlayers(int playersNumber);
     void UpdateVelocity(int nrOfSquaresTraveled);
     void DrawTable(QPainter& painter);
     void DrawPlayers(QPainter& painter);

@@ -11,3 +11,15 @@
 	<sys/types.h>
 	<signal.h>
 
+1578570016 source:/home/osboxes/random/servv/main.c
+	<sys/socket.h>
+	<arpa/inet.h>
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
+	<pthread.h>
+	<sys/types.h>
+	<signal.h>
+

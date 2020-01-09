@@ -6,7 +6,8 @@
 MyWindow::MyWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MyWindow)
-{
+  {
+    s.Connect();
     ui->setupUi(this);
     QPainter painter(this);
     const int screenWidth=800;
@@ -23,70 +24,6 @@ for (size_t i=0;i<screenWidth;i+=squareDelta)
      this->ui->text_cast->hide();
     this->ui->nr_cast->hide();
 
-for(size_t i=0;i<playersNumber;i++)//initializam toti playerii
-{
-    //urmeaza o portiune de-9 cod rusinoasa
-    if(i==0)
-    {
-        std::vector<Piece> pl;
-        Piece p(Vec2(51,61),Vec2(1,0),Qt::red);
-        pl.push_back(p);
-        Piece p2(Vec2(121,61),Vec2(1,0),Qt::red);
-        pl.push_back(p2);
-        Piece p3(Vec2(51,151),Vec2(1,0),Qt::red);
-        pl.push_back(p3);
-        Piece p4(Vec2(121,151),Vec2(1,0),Qt::red);
-        pl.push_back(p4);
-
-        players.emplace_back(pl,i+1);
-
-   }
-   if(i==1) //albastu
-   {
-       std::vector<Piece> pl;
-       Piece p(Vec2(340,61),Vec2(0,1),Qt::blue);
-       pl.push_back(p);
-       Piece p2(Vec2(410,61),Vec2(0,1),Qt::blue);
-       pl.push_back(p2);
-       Piece p3(Vec2(340,151),Vec2(0,1),Qt::blue);
-       pl.push_back(p3);
-       Piece p4(Vec2(410,151),Vec2(0,1),Qt::blue);
-       pl.push_back(p4);
-
-       players.emplace_back(pl,i+1);
-
-   }
-    if(i==2) //green
-   {
-
-
-        std::vector<Piece> pl;
-        Piece p(Vec2(51,330),Vec2(0,-1),Qt::green);
-        pl.push_back(p);
-        Piece p2(Vec2(121,330),Vec2(0,-1),Qt::green);
-        pl.push_back(p2);
-        Piece p3(Vec2(51,420),Vec2(0,-1),Qt::green);
-        pl.push_back(p3);
-        Piece p4(Vec2(121,420),Vec2(0,-1),Qt::green);
-        pl.push_back(p4);
-
-        players.emplace_back(pl,i+1);
-   }
-   if(i==3) //yellow
-   {
-
-       std::vector<Piece> pl;
-       Piece p(Vec2(340,330),Vec2(-1,0),Qt::yellow);
-       pl.push_back(p);
-       Piece p2(Vec2(410,330),Vec2(-1,0),Qt::yellow);
-       pl.push_back(p2);
-       Piece p3(Vec2(340,420),Vec2(-1,0),Qt::yellow);
-       pl.push_back(p3);
-       Piece p4(Vec2(410,420),Vec2(-1,0),Qt::yellow);
-       pl.push_back(p4);
-
-       players.emplace_back(pl,i+1);
-   }
 
        timer=new QTimer(this);
        timer->setInterval(500);
@@ -94,7 +31,7 @@ for(size_t i=0;i<playersNumber;i++)//initializam toti playerii
        connect(timer,SIGNAL(timeout()),this,SLOT(update()));
        connect(this->ui->diceButton, SIGNAL(clicked()), this, SLOT(diceButton_onClicked()));
 
-}
+
 setMouseTracking(true);
 
 }
@@ -102,7 +39,76 @@ MyWindow::~MyWindow()
 {
     delete ui;
 }
+void MyWindow::InitPlayers(int playersNumber)
+{
+    for(size_t i=0;i<playersNumber;i++)//initializam toti playerii
+    {
+        //urmeaza o portiune de-9 cod rusinoasa
+        if(i==0)
+        {
+            std::vector<Piece> pl;
+            Piece p(Vec2(51,61),Vec2(1,0),Qt::red);
+            pl.push_back(p);
+            Piece p2(Vec2(121,61),Vec2(1,0),Qt::red);
+            pl.push_back(p2);
+            Piece p3(Vec2(51,151),Vec2(1,0),Qt::red);
+            pl.push_back(p3);
+            Piece p4(Vec2(121,151),Vec2(1,0),Qt::red);
+            pl.push_back(p4);
 
+            players.emplace_back(pl,i+1);
+
+       }
+       if(i==1) //albastu
+       {
+           std::vector<Piece> pl;
+           Piece p(Vec2(340,61),Vec2(0,1),Qt::blue);
+           pl.push_back(p);
+           Piece p2(Vec2(410,61),Vec2(0,1),Qt::blue);
+           pl.push_back(p2);
+           Piece p3(Vec2(340,151),Vec2(0,1),Qt::blue);
+           pl.push_back(p3);
+           Piece p4(Vec2(410,151),Vec2(0,1),Qt::blue);
+           pl.push_back(p4);
+
+           players.emplace_back(pl,i+1);
+
+       }
+        if(i==2) //green
+       {
+
+
+            std::vector<Piece> pl;
+            Piece p(Vec2(51,330),Vec2(0,-1),Qt::green);
+            pl.push_back(p);
+            Piece p2(Vec2(121,330),Vec2(0,-1),Qt::green);
+            pl.push_back(p2);
+            Piece p3(Vec2(51,420),Vec2(0,-1),Qt::green);
+            pl.push_back(p3);
+            Piece p4(Vec2(121,420),Vec2(0,-1),Qt::green);
+            pl.push_back(p4);
+
+            players.emplace_back(pl,i+1);
+       }
+       if(i==3) //yellow
+       {
+
+           std::vector<Piece> pl;
+           Piece p(Vec2(340,330),Vec2(-1,0),Qt::yellow);
+           pl.push_back(p);
+           Piece p2(Vec2(410,330),Vec2(-1,0),Qt::yellow);
+           pl.push_back(p2);
+           Piece p3(Vec2(340,420),Vec2(-1,0),Qt::yellow);
+           pl.push_back(p3);
+           Piece p4(Vec2(410,420),Vec2(-1,0),Qt::yellow);
+           pl.push_back(p4);
+
+           players.emplace_back(pl,i+1);
+       }
+
+
+}
+}
 //aici hardcodez interfata
 void MyWindow::DrawTable(QPainter &painter)
 {
@@ -890,6 +896,17 @@ void MyWindow::Game()
 }
 void MyWindow::update()
 {
+    int nrP=s.Read();
+    if(nrP!=0)
+    {
+       if(nrP!=playersNumber)
+        {
+            playersNumber=nrP;
+            qDebug()<<playersNumber;
+            InitPlayers(playersNumber);
+            this->repaint(0,0,600,600);
+        }
+   }
     Game();
     UpdateLabels();
     this->repaint(0,0,600,600);//mandatory to work

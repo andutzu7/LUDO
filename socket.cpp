@@ -18,35 +18,19 @@ void mySocket::Connect()
     {
         qDebug()<<"Aiurea";
     }
-    updateRate=new QTimer(this);
-    updateRate->setInterval(5000);
-    updateRate->start();
-    connect(updateRate,SIGNAL(timeout()),this,SLOT(Read()));
-    updateRate->setInterval(5000);
-    updateRate->start();
-    connect(updateRate,SIGNAL(timeout()),this,SLOT(writeData()));
-
 
 }
-bool mySocket::writeData()
+void mySocket::writeData(const char* data)
 {
-    QByteArray q=QByteArray('m',10);
     if(socket->state() == QAbstractSocket::ConnectedState)
         {
-        socket->write(q);
-        qDebug()<<"WROTE SHIT";
-
-        return socket->waitForBytesWritten();
-    }
-        else
-            return false;
+        socket->write(data);
+        }
 
 }
-void mySocket::Read()
+int mySocket::Read()
 {
     socket->waitForBytesWritten(1000);
     socket->waitForReadyRead(1000);
-    qDebug()<<"Reading"<<socket->bytesAvailable();
-    qDebug()<<socket->readAll()<<endl;
-    qDebug()<<socket->readAll()<<endl;
+    return socket->readAll().toInt();
 }

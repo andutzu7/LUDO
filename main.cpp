@@ -17,9 +17,6 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
     MyWindow w;
-    mySocket s;
-    s.Connect();
-    s.Read();
     w.show();
     a.exec();
     return 0;
