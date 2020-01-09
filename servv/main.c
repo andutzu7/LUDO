@@ -90,14 +90,21 @@ void SendData(char *s, int id)
 
     pthread_mutex_unlock(&clients_mutex);
 }
+int Dice()
+{
+        int roll;
+        int minn = 1;
+        int maxx = 6;
+        roll = rand() % (maxx - minn + 1) + minn;
+        return roll;
 
+}
 
 void *HandleConnections(void *th)
 {
 
     char buff[1024];
     int stop = 0;
-    printf("%d \n",connections);
     connections++;
     sprintf(buff,"%d",connections);
 
@@ -108,11 +115,13 @@ void *HandleConnections(void *th)
 
     clientThread *cl = (clientThread *)th;
 
+
     bzero(buff,1024);
+    int requestType;//if 1-- roll dice if 2 --next player
+    int currentPlayer=1;
     while(1)
     {
-    printf("Ma preg sa citesc \n");
-        if (stop)
+     if (stop)
         {
             break;
         }
@@ -123,12 +132,29 @@ void *HandleConnections(void *th)
         {
             if(strlen(buff) > 0)
             {
+                sscanf(buff,"%d",&requestType);
+                if(requestType==1)//trimitem val zar
+                {
+                    sprintf(buff,"%d",Dice());
+                    for(int i=0;i<connections;i++)
+                       { SendData(buff,i);
+                        printf("Sending value %s to client nr %d \n",buff,i);
+                        }
+                }
+                else//trimitem val jucator
+                {
+                    if(currentPlayer<=connections)
+                        currentPlayer++;
+                    else
+                        currentPlayer=1;
+                    sprintf(buff,"%d",currentPlayer);
+                    for(int i=0;i<connections;i++)
+                        SendData(buff,i);
 
-                SendData(buff,cl->threadId); //testing purposes,trebuie modificat
-                printf("%s\n", buff);
+                }
             }
         }
-        else if (received == 0)
+      /*  else if (received == 0)
         {
             printf("%s", buff);
             SendData(buff, cl->threadId);
@@ -139,7 +165,7 @@ void *HandleConnections(void *th)
             perror("Eroare la rcv.");
             stop = 1;
         }
-
+*/
         bzero(buff, 1024);
     }
 

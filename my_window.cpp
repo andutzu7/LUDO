@@ -265,12 +265,15 @@ void MyWindow::mousePressEvent(QMouseEvent *event)
 }
 void MyWindow::diceButton_onClicked()
 {
-      int roll;
-      int min = 1; // the min number a die can roll is 1
-      int max = 6;// this->dieSize; // the max value is the die size
-      roll = rand() % (max - min + 1) + min;
-      this->ui->valzar->setText(QString::fromStdString(std::to_string(roll)));
-       diceWRolled=true;
+        gameHasStarted=true;
+        if(!requested)
+        {s.writeData("1");
+        int roll=s.Read();
+        qDebug()<<"Am citit "<<roll<<endl;
+        this->ui->valzar->setText(QString::fromStdString(std::to_string(roll)));
+        requested=true;
+        diceWRolled=true;
+        }
 }
 void MyWindow::DrawPlayers(QPainter& painter)
 {
@@ -877,18 +880,7 @@ void MyWindow::Game()
 
             }
             diceWRolled=false;
-
-                if(currentPlayer!=(int)playersNumber)
-            {
-                currentPlayer++;
-
-            }
-                else
-            {
-               currentPlayer=1;
-            }
-
-
+            requested=false;
         }
 
 
@@ -896,6 +888,8 @@ void MyWindow::Game()
 }
 void MyWindow::update()
 {
+    if(!gameHasStarted)
+    {
     int nrP=s.Read();
     if(nrP!=0)
     {
@@ -907,7 +901,10 @@ void MyWindow::update()
             this->repaint(0,0,600,600);
         }
    }
-    Game();
+
+   }
+    qDebug()<<this->ui->valzar->text();
+    Game();//anoter step of the game takes place
     UpdateLabels();
     this->repaint(0,0,600,600);//mandatory to work
 

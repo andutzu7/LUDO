@@ -20,7 +20,9 @@ class MyWindow : public QMainWindow
     Q_OBJECT
 
 public:
+    bool gameHasStarted=false;
     mySocket s;
+    bool requested=false;
     int j=0;//???
     size_t playersNumber=1;
     QTimer* timer;
