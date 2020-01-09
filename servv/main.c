@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <time.h>
 
 #define MAXCLIENTS 4
 #define PORT 2024
@@ -92,6 +93,7 @@ void SendData(char *s, int id)
 }
 int Dice()
 {
+        srand ( time(NULL) );
         int roll;
         int minn = 1;
         int maxx = 6;
@@ -136,22 +138,9 @@ void *HandleConnections(void *th)
                 if(requestType==1)//trimitem val zar
                 {
                     sprintf(buff,"%d",Dice());
-                    for(int i=0;i<connections;i++)
-                       { SendData(buff,i);
-                        printf("Sending value %s to client nr %d \n",buff,i);
-                        }
+                     SendData(buff,cl->threadId);
                 }
-                else//trimitem val jucator
-                {
-                    if(currentPlayer<=connections)
-                        currentPlayer++;
-                    else
-                        currentPlayer=1;
-                    sprintf(buff,"%d",currentPlayer);
-                    for(int i=0;i<connections;i++)
-                        SendData(buff,i);
 
-                }
             }
         }
       /*  else if (received == 0)

@@ -1,4 +1,4 @@
-#include "my_window.h"
+    #include "my_window.h"
 #include "ui_mywindow.h"
 #include <QDebug>
 #include <string>
@@ -267,9 +267,13 @@ void MyWindow::diceButton_onClicked()
 {
         gameHasStarted=true;
         if(!requested)
-        {s.writeData("1");
+        {
+        s.writeData("1");
         int roll=s.Read();
-        qDebug()<<"Am citit "<<roll<<endl;
+        if(roll>6)
+        {
+            roll=rand()%6+1;
+        }
         this->ui->valzar->setText(QString::fromStdString(std::to_string(roll)));
         requested=true;
         diceWRolled=true;
@@ -881,6 +885,16 @@ void MyWindow::Game()
             }
             diceWRolled=false;
             requested=false;
+            if(currentPlayer!=playersNumber)
+            {
+                currentPlayer++;
+
+            }
+            else
+            {
+               currentPlayer=1;
+            }
+
         }
 
 
@@ -903,7 +917,6 @@ void MyWindow::update()
    }
 
    }
-    qDebug()<<this->ui->valzar->text();
     Game();//anoter step of the game takes place
     UpdateLabels();
     this->repaint(0,0,600,600);//mandatory to work
